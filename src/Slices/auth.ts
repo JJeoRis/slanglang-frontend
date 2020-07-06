@@ -66,29 +66,28 @@ export const {
 } = authSlice.actions;
 export default authSlice.reducer;
 
-type ISignInResponse = {
-  token: string;
-};
-
 export function signIn(username: string, email: string, onSuccess: () => void) {
   return async (dispatch: Dispatch) => {
     dispatch(signInStatrt());
 
     try {
       // Process login with real data
-      const response = await axios.post<ISignInResponse>("/login", {
+      const response = await axios.post("/api/v1/users/sign-in", {
         username,
         email,
       });
+
+      const token = response.data.split(" ")[1] as string;
 
       const userInfo: IUserInfo = {
         email,
         username,
       };
 
-      dispatch(signInSuccess({ token: response.data.token, user: userInfo }));
+      dispatch(signInSuccess({ token, user: userInfo }));
       onSuccess();
     } catch (error) {
+      console.error(error);
       dispatch(signInFailure());
     } finally {
       dispatch(signInFinish());

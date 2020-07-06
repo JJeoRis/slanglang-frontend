@@ -97,7 +97,6 @@ export default ({ isPopup = false, clientId, callbackUrl, onSuccess, onFailure }
         });
         // Initialize
         naverLogin.init();
-        console.log(naverLogin);
         baseElement.style.display = "none";
         setNaverLogin(naverLogin);
       }

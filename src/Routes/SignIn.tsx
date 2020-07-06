@@ -78,7 +78,10 @@ export default () => {
 
   const { isSignedIn } = useSelector(authSelector);
 
-  const onSuccessRouting = useCallback(() => history.push("/"), [history]);
+  const onSuccessRouting = useCallback(() => {
+    console.log("here");
+    history.push("/");
+  }, [history]);
 
   // TODO : Routing에서 아예 현재 Routing에 접근하지 못하도록 할 수 있는가?
   useEffect(() => {
@@ -89,7 +92,6 @@ export default () => {
   }, [isSignedIn, onSuccessRouting]);
 
   const onSuccess = ({ name, email }: ISuccessArgs) => {
-    console.log(name, email);
     dispatch(signIn(name, email, onSuccessRouting));
   };
 
