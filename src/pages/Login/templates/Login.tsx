@@ -1,13 +1,12 @@
 import React from "react";
-import TopAppBar from "../../../common/components/organisms/TopAppBar/index";
-import { Container, Grid, Paper, Typography, Button } from "@material-ui/core";
+import { Container, Grid, Paper, Typography } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
-import { primaryColor } from "../../../styles/index";
+import LoginButton, { ISuccessArgs } from "../../../common/components/organisms/LoginButton";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     paperBox: {
-      width: "400px",
+      width: "300px",
       padding: theme.spacing(1),
     },
     containerBox: {
@@ -16,8 +15,18 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-export default () => {
+type IProps = {
+  handleLogin: (username: string, email: string) => void;
+};
+
+export default ({ handleLogin }: IProps) => {
   const classes = useStyles();
+
+  const onSuccess = ({ name, email }: ISuccessArgs) => {
+    handleLogin(name, email);
+  };
+
+  const onFailure = () => {};
 
   return (
     <Container className={classes.containerBox}>
@@ -28,22 +37,24 @@ export default () => {
           </Typography>
         </Grid>
 
-        <Grid container justify="center" alignItems="center">
+        <Grid item container justify="center" alignItems="center">
           <Paper className={classes.paperBox}>
-            <Grid container direction="column">
+            <Grid item container direction="column">
               <Grid item xs>
                 <Typography variant="h6" align="center" gutterBottom>
                   Let's lead a trend
                 </Typography>
               </Grid>
-              <Grid xs>
-                <Button fullWidth>카카오 로그인</Button>
-              </Grid>
-              <Grid xs>
-                <Button fullWidth>네이버 로그인</Button>
-              </Grid>
-              <Grid xs>
-                <Button fullWidth>구글 로그인</Button>
+              <Grid item container direction="column" spacing={1}>
+                <Grid item xs>
+                  <LoginButton type="kakao" onSuccess={onSuccess} onFailure={onFailure} />
+                </Grid>
+                <Grid item xs>
+                  <LoginButton type="naver" onSuccess={onSuccess} onFailure={onFailure} />
+                </Grid>
+                <Grid item xs>
+                  <LoginButton type="google" onSuccess={onSuccess} onFailure={onFailure} />
+                </Grid>
               </Grid>
             </Grid>
           </Paper>

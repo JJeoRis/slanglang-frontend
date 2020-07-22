@@ -2,8 +2,6 @@ import { ICard } from "../../../../common/modules/model/CardModel";
 import { v4 as uuidv4 } from "uuid";
 
 class CardListRepository {
-  constructor() {}
-
   cardList: ICard[] = [
     {
       id: uuidv4(),

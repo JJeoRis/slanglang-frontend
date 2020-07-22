@@ -1,12 +1,12 @@
 import { extendObservable } from "mobx";
 import { autobind } from "core-decorators";
-import { IUserModel } from "./UserModel";
+import { IUser } from "./UserModel";
 
 export type ICard = {
   id: string;
   title: string;
   description: string;
-  user: IUserModel;
+  user: IUser;
 };
 
 @autobind

@@ -3,7 +3,6 @@ import { ICard } from "../../../common/modules/model/CardModel";
 import Card from "../../../common/components/organisms/Card";
 import { Container } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
-import { spacing } from "@material-ui/system";
 import TopAppBar from "../../../common/components/organisms/TopAppBar";
 import Search from "../../../common/components/organisms/Search";
 

@@ -1,7 +1,7 @@
 import { autobind } from "core-decorators";
 import { extendObservable } from "mobx";
 
-export type IUserModel = {
+export type IUser = {
   id: String;
   email: String;
   name: String;
