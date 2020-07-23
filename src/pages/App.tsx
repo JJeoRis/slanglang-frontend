@@ -6,6 +6,8 @@ import { ThemeProvider } from "styled-components";
 import Theme from "../common/styles/theme";
 import { BrowserRouter } from "react-router-dom";
 import { materialTheme } from "../styles/materialStyle";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default () => (
   <>
@@ -14,6 +16,7 @@ export default () => (
         <BrowserRouter>
           <CssBaseline>
             <Router />
+            <ToastContainer />
           </CssBaseline>
         </BrowserRouter>
       </MaterialThemeProvider>

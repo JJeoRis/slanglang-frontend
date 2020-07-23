@@ -1,7 +1,9 @@
 import React from "react";
-import { Container, Grid, Paper, Typography } from "@material-ui/core";
+import { Container, Grid, Paper, Typography, Link } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import LoginButton, { ISuccessArgs } from "../../../common/components/organisms/LoginButton";
+import { Link as RouterLink } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -11,6 +13,9 @@ const useStyles = makeStyles((theme) =>
     },
     containerBox: {
       padding: theme.spacing(1),
+    },
+    title: {
+      fontFamily: "Permanent Marker, cursive",
     },
   })
 );
@@ -23,17 +28,25 @@ export default ({ handleLogin }: IProps) => {
   const classes = useStyles();
 
   const onSuccess = ({ name, email }: ISuccessArgs) => {
-    handleLogin(name, email);
+    toast.success("Success to login", { autoClose: 1500 });
+    setTimeout(() => handleLogin(name, email), 1500);
   };
 
   const onFailure = () => {};
 
   return (
     <Container className={classes.containerBox}>
-      <Grid container spacing={4}>
+      <Grid container spacing={4} direction="column">
         <Grid item xs>
-          <Typography variant="h5" align="center" gutterBottom>
-            Sign in to SlangSlang
+          <Typography variant="h5" align="center" className={classes.title}>
+            Welcome to
+          </Typography>
+        </Grid>
+        <Grid item xs>
+          <Typography variant="h3" align="center" gutterBottom className={classes.title}>
+            <Link component={RouterLink} to="/" color="inherit" underline="none">
+              SLANGSLANG
+            </Link>
           </Typography>
         </Grid>
 
