@@ -1,17 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
 import CardForm from "./templates/CardForm";
+import CardFormStore from "./module/store/CardFormStore";
 import { observer } from "mobx-react-lite";
-import { useState } from "react";
+import { ICardForm } from "./module/repository/CardFormRepository";
+import { useHistory } from "react-router-dom";
+import { url } from "../../common/constants";
+import { convertParamsToQuery } from "../CardList/utils";
 
 const CardFormController = () => {
-  const [tagList, setTagList] = useState<string[]>([]);
+  const { loading, createCard } = useContext(CardFormStore);
+  const history = useHistory();
 
-  const addTag = (key: string) => setTagList([...tagList, key]);
+  const handleCardCreation = async (formData: ICardForm) => {
+    const card = await createCard(formData);
+    history.push({
+      pathname: url.cardList,
+      search: convertParamsToQuery({ term: card.term }),
+      state: {
+        card,
+      },
+    });
+  };
 
-  const deleteTag = (key: string, deleteIdx: number) =>
-    setTagList(tagList.filter((_, idx) => idx !== deleteIdx));
-
-  return <CardForm tagList={tagList} addTag={addTag} deleteTag={deleteTag} />;
+  return <CardForm handleCardCreation={handleCardCreation} loading={loading} />;
 };
 
 export default observer(CardFormController);

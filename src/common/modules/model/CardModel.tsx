@@ -4,7 +4,7 @@ import { IUser } from "./UserModel";
 
 export type ICard = {
   id: string;
-  title: string;
+  term: string;
   description: string;
   user: IUser;
 };
