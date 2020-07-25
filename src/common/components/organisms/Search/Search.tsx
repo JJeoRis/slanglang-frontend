@@ -10,12 +10,12 @@ import { convertParamsToQuery, convertQueryToParams } from "../../../../pages/Ca
 
 export default () => {
   const history = useHistory();
-  const location = useLocation();
+  const { search } = useLocation();
 
   useEffect(() => {
-    const { term: currentTerm } = convertQueryToParams(location.search);
+    const { term: currentTerm } = convertQueryToParams(search);
     setTerm(currentTerm ? currentTerm : "");
-  }, [location]);
+  }, [search]);
 
   const goToCardForm = () => history.push(url.cardForm);
   const [term, setTerm] = useState("");

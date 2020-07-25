@@ -3,6 +3,7 @@ import { observable, reaction } from "mobx";
 import { ICard } from "../../../../common/modules/model/CardModel";
 import { createContext } from "react";
 import cardListRepository from "../repository/CardListRepository";
+import { IParams } from "../../utils/index";
 
 @autobind
 class CardListStore {
@@ -14,10 +15,15 @@ class CardListStore {
   }
 
   @observable
+  loading: boolean = false;
+
+  @observable
   cardList: ICard[] = [];
 
-  async findAll() {
-    this.cardList = await cardListRepository.findAll();
+  async find(params: IParams) {
+    this.loading = true;
+    this.cardList = await cardListRepository.find(params);
+    this.loading = false;
   }
 }
 

@@ -19,9 +19,10 @@ const useStyles = makeStyles((theme) =>
 
 type IProps = {
   cardList: ICard[];
+  loading: boolean;
 };
 
-export default ({ cardList }: IProps) => {
+export default ({ cardList, loading }: IProps) => {
   const classes = useStyles();
   return (
     <>
@@ -31,8 +32,8 @@ export default ({ cardList }: IProps) => {
           <Search />
         </div>
         {cardList.map((card) => (
-          <div className={classes.cardWrapper}>
-            <Card key={card.id} card={card} />
+          <div key={card.id} className={classes.cardWrapper}>
+            <Card card={card} />
           </div>
         ))}
       </Container>
