@@ -1,7 +1,6 @@
 import { autobind } from "core-decorators";
-import { observable, reaction, action } from "mobx";
+import { observable, reaction } from "mobx";
 import { ICard } from "../../../../common/modules/model/CardModel";
-import { v4 as uuidv4 } from "uuid";
 import { createContext } from "react";
 import cardListRepository from "../repository/CardListRepository";
 

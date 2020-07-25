@@ -11,7 +11,7 @@ export default ({ card }: IProps) => (
     <Card elevation={2}>
       <CardContent>
         <Typography variant="h5" gutterBottom>
-          {card.title}
+          {card.term}
         </Typography>
         <Typography>{card.description}</Typography>
       </CardContent>
