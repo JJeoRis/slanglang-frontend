@@ -69,8 +69,6 @@ export default ({ handleCardCreation, loading }: IProps) => {
     register(TAG_LIST_NAME);
   }, [register]);
 
-  console.log(errors);
-
   return (
     <>
       <TopAppBar />
