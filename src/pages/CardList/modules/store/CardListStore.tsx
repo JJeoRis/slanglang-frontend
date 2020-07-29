@@ -21,9 +21,14 @@ class CardListStore {
   cardList: ICard[] = [];
 
   async find(params: IParams) {
-    this.loading = true;
-    this.cardList = await cardListRepository.find(params);
-    this.loading = false;
+    try {
+      this.loading = true;
+      this.cardList = await cardListRepository.find(params);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      this.loading = false;
+    }
   }
 }
 

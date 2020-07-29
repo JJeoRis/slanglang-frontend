@@ -1,6 +1,6 @@
 import queryString from "query-string";
 
-type IParams = {
+export type IParams = {
   keyWord?: string;
   isTag?: boolean;
   userId?: string;

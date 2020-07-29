@@ -13,8 +13,8 @@ export default () => {
   const { search } = useLocation();
 
   useEffect(() => {
-    const { term: currentTerm } = convertQueryToParams(search);
-    setTerm(currentTerm ? currentTerm : "");
+    const { keyWord: currentKeyWord } = convertQueryToParams(search);
+    setTerm(currentKeyWord ? currentKeyWord : "");
   }, [search]);
 
   const goToCardForm = () => history.push(url.cardForm);
@@ -27,7 +27,7 @@ export default () => {
   const handleEnter = () => {
     history.push({
       pathname: "/",
-      search: convertParamsToQuery({ term }),
+      search: !term ? "" : convertParamsToQuery({ keyWord: term }),
     });
   };
 
