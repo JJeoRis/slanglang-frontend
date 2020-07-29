@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import ChipInput from "material-ui-chip-input";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { ICardForm } from "../module/repository/CardFormRepository";
 
 const useStyles = makeStyles((theme) =>
@@ -48,7 +48,9 @@ const TAG_LIST_NAME = "tagList";
 export default ({ handleCardCreation, loading }: IProps) => {
   const classes = useStyles();
 
-  const { register, control, handleSubmit, setValue } = useForm<ICardForm>();
+  const { register, errors, handleSubmit, setValue } = useForm<ICardForm>({
+    reValidateMode: "onChange",
+  });
 
   const [tagList, setTagList] = useState<string[]>([]);
   const addTag = (key: string) => {
@@ -65,12 +67,14 @@ export default ({ handleCardCreation, loading }: IProps) => {
 
   useEffect(() => {
     register(TAG_LIST_NAME);
-  }, []);
+  }, [register]);
+
+  console.log(errors);
 
   return (
     <>
       <TopAppBar />
-      <Container maxWidth="sm">
+      <Container maxWidth="md">
         <div className={classes.paperWrapper}>
           <Paper className={classes.paper}>
             <form onSubmit={handleSubmit(handleCardCreation)}>
@@ -86,8 +90,9 @@ export default ({ handleCardCreation, loading }: IProps) => {
                     label="단어"
                     placeholder="단어나 간단한 문장도 좋습니다"
                     fullWidth
+                    required
                     variant="outlined"
-                    inputRef={register}
+                    inputRef={register({ required: true })}
                   />
                 </Grid>
                 <Grid item xs>
@@ -98,8 +103,9 @@ export default ({ handleCardCreation, loading }: IProps) => {
                     name="description"
                     variant="outlined"
                     multiline
+                    required
                     rows={5}
-                    inputRef={register}
+                    inputRef={register({ required: true })}
                   />
                 </Grid>
                 <Grid item xs>
@@ -110,8 +116,9 @@ export default ({ handleCardCreation, loading }: IProps) => {
                     rows={3}
                     name="example"
                     multiline
+                    required
                     variant="outlined"
-                    inputRef={register}
+                    inputRef={register({ required: true })}
                   />
                 </Grid>
                 <Grid item xs>
@@ -119,9 +126,16 @@ export default ({ handleCardCreation, loading }: IProps) => {
                     label="움짤"
                     placeholder="움짤 주소를 입력해주세요"
                     fullWidth
+                    error={!!errors.gifUrlList}
+                    helperText={!!errors.gifUrlList && "정확한 URL을 입력해주세요"}
                     name="gifUrlList[0]"
                     variant="outlined"
-                    inputRef={register}
+                    inputRef={register({
+                      pattern: {
+                        value: /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/,
+                        message: "정확한 URL을 입력해주세요",
+                      },
+                    })}
                   />
                 </Grid>
                 <Grid item xs className={classes.tagBox}>

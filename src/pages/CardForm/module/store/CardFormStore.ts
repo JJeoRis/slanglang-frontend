@@ -1,14 +1,7 @@
 import { autobind } from "core-decorators";
 import { createContext } from "react";
 import { observable } from "mobx";
-import cardFormRepository, {
-  ICardForm,
-} from "../repository/CardFormRepository";
-import { ICard } from "../../../../common/modules/model/CardModel";
-
-const sleep = async (ms: number) => {
-  return new Promise((res, rej) => setTimeout(res, ms));
-};
+import cardFormRepository, { ICardForm } from "../repository/CardFormRepository";
 
 @autobind
 class CardFormStore {
@@ -16,9 +9,16 @@ class CardFormStore {
   loading: boolean = false;
 
   async createCard(formData: ICardForm) {
-    this.loading = true;
-    const card = await cardFormRepository.createCard(formData);
-    this.loading = false;
+    let card;
+    try {
+      this.loading = true;
+      card = await cardFormRepository.createCard(formData);
+    } catch (err) {
+      console.log("Error", err);
+    } finally {
+      this.loading = false;
+    }
+
     return card;
   }
 }
