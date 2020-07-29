@@ -2,7 +2,7 @@ import { createContext } from "react";
 import { autobind } from "core-decorators";
 import { observable, reaction } from "mobx";
 import { IUser } from "../model/UserModel";
-import userRepository from "../repository/AuthRepository";
+import authRepository from "../repository/AuthRepository";
 
 @autobind
 class AuthStore {
@@ -20,9 +20,19 @@ class AuthStore {
   token: string = "";
 
   async login(username: string, email: string) {
-    const { token, user } = await userRepository.login(username, email);
+    const { token, user } = await authRepository.login(username, email);
     this.user = user;
     this.token = token;
+    authRepository.saveToken(token);
+  }
+
+  syncToken() {
+    const token = authRepository.getToken();
+    if (!token) {
+      this.token = "";
+    } else {
+      this.token = token;
+    }
   }
 }
 

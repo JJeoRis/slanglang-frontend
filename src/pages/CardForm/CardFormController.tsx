@@ -15,7 +15,7 @@ const CardFormController = () => {
     const card = await createCard(formData);
     history.push({
       pathname: url.cardList,
-      search: convertParamsToQuery({ term: card.term }),
+      search: convertParamsToQuery({ keyWord: card.term }),
       state: {
         card,
       },

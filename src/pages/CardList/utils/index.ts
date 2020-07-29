@@ -1,7 +1,7 @@
 import queryString from "query-string";
 
 type IParams = {
-  term?: string;
+  keyWord?: string;
   isTag?: boolean;
   userId?: string;
   page?: number;
